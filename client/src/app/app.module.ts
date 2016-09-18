@@ -8,6 +8,7 @@ import {MdCardModule} from '@angular2-material/card';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { NavComponent } from './nav/nav.component'
 import { ApiService } from './shared';
 import { routing } from './app.routing';
 
@@ -24,7 +25,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    NavComponent
   ],
   providers: [
     ApiService

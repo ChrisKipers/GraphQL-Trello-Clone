@@ -1,0 +1,16 @@
+nav {
+  background: rgba(0,0,0,.15);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+
+  a {
+    text-decoration: none;
+  }
+
+  .app-link {
+    font-size: 150%;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Lobster', cursive;
+  }
+}
