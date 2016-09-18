@@ -1,0 +1,23 @@
+{
+  "name": "graphql-trello-clone-service",
+  "version": "1.0.0",
+  "description": "Service layer for Trello clone using graphql",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {
+    "express": "^4.14.0",
+    "express-graphql": "^0.5.4",
+    "graphql": "^0.7.0",
+    "mysql": "^2.11.1",
+    "sequelize": "^3.24.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Graphql",
+    "trello"
+  ],
+  "author": "Chris Kipers <ckipers@gmail.com>",
+  "license": "ISC"
+}
