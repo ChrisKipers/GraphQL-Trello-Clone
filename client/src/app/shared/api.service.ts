@@ -23,6 +23,7 @@ export class ApiService {
       `mutation AddBoard($board: addBoardInput) {
         addBoardMutation(input: $board) {
           id
+          name
         }
       }`;
 
@@ -37,6 +38,9 @@ export class ApiService {
       variables: JSON.stringify(variables)
     };
     const options = {headers: {'Content-Type': ['application/json']}};
-    return this.http.post(path, JSON.stringify(requestPayload), options).map(r => r.json().data);
+    return this.http
+      .post(path, JSON.stringify(requestPayload), options)
+      .toPromise()
+      .then(r => r.json().data);
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './../shared';
+import { BoardActionDispatcher } from '../actions/board_actions'
+import { AppStore } from '../stores/app_store';
+
 
 @Component({
   selector: 'my-home',
@@ -11,16 +13,17 @@ export class HomeComponent implements OnInit {
   public isLoading: boolean;
   public boards: Array<Object>;
 
-  constructor(private api: ApiService) {
-    this.isLoading = true;
-    api.getBoards().subscribe(result => {
-      this.boards = result.boards;
-      this.isLoading = false;
-    });
+  constructor(private appStore: AppStore, private boardActionDispatcher: BoardActionDispatcher) {
   }
 
   ngOnInit() {
-    console.log('Hello Home');
+    this.appStore.subscribe(this.updateState.bind(this));
+    this.boardActionDispatcher.loadBoardList();
+  }
+
+  updateState() {
+    this.boards = this.appStore.getState().board.boardList;
+    this.isLoading = this.appStore.getState().board.isLoadingBoardList;
   }
 
 }

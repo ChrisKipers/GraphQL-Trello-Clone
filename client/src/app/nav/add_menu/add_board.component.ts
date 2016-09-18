@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './../../shared';
+import { BoardActionDispatcher } from './../../actions/board_actions';
 
 @Component({
   selector: 'add-board',
@@ -7,11 +7,11 @@ import { ApiService } from './../../shared';
   styleUrls: ['./add_board.component.scss']
 })
 export class AddBoardComponent implements OnInit {
-  constructor(private api: ApiService) {}
+  constructor(private boardActionDispatcher: BoardActionDispatcher) {}
 
   ngOnInit() {}
 
   createBoard(boardName) {
-    this.api.createBoard({name: boardName}).subscribe(console.log);
+    this.boardActionDispatcher.createBoard({name: boardName});
   }
 }

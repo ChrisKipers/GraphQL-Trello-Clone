@@ -20,6 +20,7 @@ import { ApiService } from './shared';
 import { routing } from './app.routing';
 
 import { AppStateActionDispatcher } from './actions/app_state_actions';
+import { BoardActionDispatcher } from './actions/board_actions';
 import { AppStore } from './stores/app_store'
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -50,6 +51,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     OVERLAY_PROVIDERS,
     AppStore,
     AppStateActionDispatcher,
+    BoardActionDispatcher
   ],
   bootstrap: [AppComponent]
 })
