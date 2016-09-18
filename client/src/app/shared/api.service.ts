@@ -7,10 +7,10 @@ const queryPath = path + '?query=';
 @Injectable()
 export class ApiService {
   constructor(private http: Http) {}
-  getUsers()  {
+  getBoards()  {
     const query =
       `query {
-        users {
+        boards {
           id
           name
         }

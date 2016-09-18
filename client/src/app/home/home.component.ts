@@ -9,12 +9,12 @@ import { ApiService } from './../shared';
 export class HomeComponent implements OnInit {
 
   public isLoading: boolean;
-  public users: Array<Object>;
+  public boards: Array<Object>;
 
   constructor(private api: ApiService) {
     this.isLoading = true;
-    api.getUsers().subscribe(result => {
-      this.users = result.data.users;
+    api.getBoards().subscribe(result => {
+      this.boards = result.data.boards;
       this.isLoading = false;
     });
   }

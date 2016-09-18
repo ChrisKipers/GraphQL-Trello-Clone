@@ -25,7 +25,7 @@ const query = new GraphQLObjectType({
     boards: {
       type: new GraphQLList(boardGraphQLType),
       resolve() {
-        return new boardDao.findAll().then(boards => boards.map(boardTransformer.transform));
+        return boardDao.findAll().then(boards => boards.map(boardTransformer.transform));
       }
     }
   })
