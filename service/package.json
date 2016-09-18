@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Service layer for Trello clone using graphql",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "cors": "^2.8.1"
+  },
   "devDependencies": {
     "express": "^4.14.0",
     "express-graphql": "^0.5.4",
