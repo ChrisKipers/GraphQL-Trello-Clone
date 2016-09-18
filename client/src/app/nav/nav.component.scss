@@ -1,5 +1,5 @@
 nav {
-  background: rgba(0,0,0,.15);
+  background: #026AA7;
   display: flex;
   justify-content: space-between;
   padding: 10px;
@@ -8,9 +8,38 @@ nav {
     text-decoration: none;
   }
 
+  button {
+    color: white;
+    background: rgba(255, 255, 255, 0.6);
+    border:none;
+    outline: none;
+    border-radius: 3px;
+  }
+
   .app-link {
     font-size: 150%;
     color: rgba(255, 255, 255, 0.6);
     font-family: 'Lobster', cursive;
   }
+
+
+}
+
+.add-dialog {
+  position: absolute;
+  right: 5px;
+  top: 55px;
+  background: white;
+
+  // TODO MOVE TO COMMON
+  padding: 5px;
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #D6DADC;
+  border-bottom-color: #C4C9CC;
+  box-shadow: 0 1px 6px rgba(0,0,0,.15);
+  overflow: hidden;
+  width: 300px;
+  z-index: 70;
+  -webkit-transform: translate3d(0,0,0);
 }

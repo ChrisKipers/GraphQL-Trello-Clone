@@ -3,5 +3,13 @@
   <div>
     <a class="app-link" [routerLink]="['']">Trello Clone</a>
   </div>
-  <div></div>
+  <div>
+    <button (click)="toggleAddDialog()">
+      <md-icon>add</md-icon>
+    </button>
+  </div>
 </nav>
+<div class="add-dialog pop-over" *ngIf="isAddDialogOpen">
+  <add-menu></add-menu>
+</div>
+

@@ -1,7 +1,10 @@
 .board-list {
   display: flex;
+  flex-wrap: wrap;
 
   > md-card {
     margin: 20px;
+    background: #026AA7;
+    color: white;
   }
 }

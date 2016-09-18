@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppStore } from '../stores/app_store';
+import { AppStateActionDispatcher } from '../actions/app_state_actions';
 
 @Component({
   selector: 'app-nav',
@@ -6,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  constructor() {
+  public isAddDialogOpen: boolean;
+
+  constructor(private appStore: AppStore, private appStateActionDispatcher: AppStateActionDispatcher) {}
+
+  ngOnInit() {
+    this.isAddDialogOpen = this.appStore.getState().appState.isAddDialogOpen;
+    this.appStore.subscribe(() => {
+      this.isAddDialogOpen = this.appStore.getState().appState.isAddDialogOpen;
+    });
   }
 
-  ngOnInit() {}
-
+  toggleAddDialog() {
+    if (this.isAddDialogOpen) {
+      this.appStateActionDispatcher.closeAddDialog();
+    } else {
+      this.appStateActionDispatcher.openAddDialog();
+    }
+  }
 }

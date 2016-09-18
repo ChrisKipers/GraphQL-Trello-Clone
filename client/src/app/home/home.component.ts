@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private api: ApiService) {
     this.isLoading = true;
     api.getBoards().subscribe(result => {
-      this.boards = result.data.boards;
+      this.boards = result.boards;
       this.isLoading = false;
     });
   }

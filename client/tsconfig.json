@@ -11,7 +11,8 @@
       "jasmine",
       "node",
       "protractor",
-      "selenium-webdriver"
+      "selenium-webdriver",
+      "hammerjs"
     ]
   },
   "compileOnSave": false,
