@@ -12,7 +12,7 @@ import {MdIconModule, MdIconRegistry} from '@angular2-material/icon';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { BoardDetailComponent } from './board_detail/board_detail.component';
 import { NavComponent } from './nav/nav.component'
 import { AddMenuComponent } from './nav/add_menu/add_menu.component';
 import { AddBoardComponent } from './nav/add_menu/add_board.component';
@@ -40,7 +40,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
+    BoardDetailComponent,
     NavComponent,
     AddMenuComponent,
     AddBoardComponent

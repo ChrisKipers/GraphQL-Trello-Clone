@@ -1,10 +1,16 @@
+$board-item-bg-color: #026AA7;
+
 .board-list {
   display: flex;
   flex-wrap: wrap;
 
   > md-card {
     margin: 20px;
-    background: #026AA7;
+    background: $board-item-bg-color;
     color: white;
+    cursor: pointer;
+    &:hover {
+      background: darken($board-item-bg-color, 10%);
+    }
   }
 }

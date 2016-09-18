@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BoardActionDispatcher } from '../actions/board_actions'
 import { AppStore } from '../stores/app_store';
 
@@ -13,7 +14,10 @@ export class HomeComponent implements OnInit {
   public isLoading: boolean;
   public boards: Array<Object>;
 
-  constructor(private appStore: AppStore, private boardActionDispatcher: BoardActionDispatcher) {
+  constructor(
+    private appStore: AppStore,
+    private boardActionDispatcher: BoardActionDispatcher,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -26,4 +30,7 @@ export class HomeComponent implements OnInit {
     this.isLoading = this.appStore.getState().board.isLoadingBoardList;
   }
 
+  goToBoard(board) {
+    this.router.navigate(['board', board.id]);
+  }
 }
