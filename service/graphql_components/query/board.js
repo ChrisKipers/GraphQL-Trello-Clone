@@ -3,6 +3,8 @@ const {GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLInt} = r
 const {boardListGraphQLType} = require('./board_list');
 const {boardListDao} = require('../../dao/board_list_dao');
 const {boardListTransformer} = require('../../transformers/board_list_transformer');
+const {taskDao} = require('../../dao/task_dao');
+
 
 
 const boardListEdgeGraphQLType = new GraphQLObjectType({
@@ -48,9 +50,21 @@ const boardGraphQLType = new GraphQLObjectType({
               const edges = boardLists.map(bl => ({
                 position: bl.position,
                 node: boardListTransformer.transform(bl)
-              }))
+              }));
               return {edges};
             });
+        }
+      },
+      numberOfLists: {
+        type: GraphQLInt,
+        resolve(parent) {
+          return boardListDao.count({where: {boardId: parent.id}})
+        }
+      },
+      numberOfTasks: {
+        type: GraphQLInt,
+        resolve(parent) {
+          return taskDao.getNumberOfTasksForBoard(parent.id);
         }
       }
     }

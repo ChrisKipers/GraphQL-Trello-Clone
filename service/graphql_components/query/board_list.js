@@ -51,6 +51,12 @@ const boardListGraphQLType = new GraphQLObjectType({
               return {edges};
             });
         }
+      },
+      numberOfTasks: {
+        type: GraphQLInt,
+        resolve(parent) {
+          return taskDao.count({where: {boardListId: parent.id}})
+        }
       }
     }
   }

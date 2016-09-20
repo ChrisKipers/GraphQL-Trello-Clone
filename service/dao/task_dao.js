@@ -23,6 +23,18 @@ const taskDao = connection.define('task', {
   }
 });
 
+taskDao.getNumberOfTasksForBoard = function(boardId, options) {
+  const query =
+    `
+      SELECT COUNT(*) FROM tasks AS ts
+      INNER JOIN boardLists as bl on ts.boardListId = bl.id
+      WHERE bl.boardId = :boardId
+    `;
+  return connection
+    .query(query, {replacements: {boardId: boardId}, type: connection.QueryTypes.SELECT})
+    .then(r => r[0]['COUNT(*)'])
+};
+
 module.exports = {
   taskDao
 };
