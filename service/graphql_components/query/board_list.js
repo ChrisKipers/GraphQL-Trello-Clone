@@ -1,4 +1,33 @@
-const {GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID} = require('graphql');
+const {GraphQLObjectType, GraphQLString, GraphQLList, GraphQLInt, GraphQLID} = require('graphql');
+
+const {taskGraphQLType} = require('./task');
+const {taskDao} = require('../../dao/task_dao');
+const {taskTransformer} = require('../../transformers/task_transformer');
+
+const taskEdgeGraphQLType = new GraphQLObjectType({
+  name: 'TaskEdge',
+  fields: () => {
+    return {
+      position: {
+        type: GraphQLInt
+      },
+      node: {
+        type: taskGraphQLType
+      }
+    }
+  }
+});
+
+const taskCollectionGraphQLType = new GraphQLObjectType({
+  name: 'TaskCollection',
+  fields: () => {
+    return {
+      edges: {
+        type: new GraphQLList(taskEdgeGraphQLType)
+      }
+    }
+  }
+});
 
 const boardListGraphQLType = new GraphQLObjectType({
   name: 'BoardList',
@@ -9,6 +38,19 @@ const boardListGraphQLType = new GraphQLObjectType({
       },
       name: {
         type: GraphQLString
+      },
+      tasks: {
+        type: taskCollectionGraphQLType,
+        resolve(parent) {
+          return taskDao.findAll({where: {boardListId: parent.id}})
+            .then(tasks => {
+              const edges = tasks.map(ts => ({
+                position: ts.position,
+                node: taskTransformer.transform(ts)
+              }));
+              return {edges};
+            });
+        }
       }
     }
   }
