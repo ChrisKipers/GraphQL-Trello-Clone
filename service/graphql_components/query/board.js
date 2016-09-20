@@ -45,10 +45,11 @@ const boardGraphQLType = new GraphQLObjectType({
         resolve(parent) {
           return boardListDao.findAll({where: {boardId: parent.id}})
             .then(boardLists => {
-              return boardLists.map(bl => ({
+              const edges = boardLists.map(bl => ({
                 position: bl.position,
                 node: boardListTransformer.transform(bl)
               }))
+              return {edges};
             });
         }
       }
