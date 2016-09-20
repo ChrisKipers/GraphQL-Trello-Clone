@@ -29,9 +29,9 @@ export class BoardActionDispatcher {
     this.appStore.dispatch({type: CREATE_BOARD});
 
     this.apiService.createBoard(newBoard).then((data) => {
-      this.appStore.dispatch({type: CREATE_BOARD_SUCCESS, board: data.addBoardMutation});
+      this.appStore.dispatch({type: CREATE_BOARD_SUCCESS, board: data.addBoard});
       this.appStateActionDispatcher.closeAddDialog();
-      this.router.navigate(['board', data.addBoardMutation.id]);
+      this.router.navigate(['board', data.addBoard.id]);
     })
   }
 
