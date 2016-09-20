@@ -18,6 +18,17 @@ export class ApiService {
     return this.makeQuery_(query, {});
   }
 
+  getBoard(boardId) {
+    const query =
+      `query {
+        board(id: ${boardId}) {
+          id
+          name
+        }
+      }`;
+    return this.makeQuery_(query, {});
+  }
+
   createBoard(board) {
     const mutation =
       `mutation AddBoard($board: addBoardInput) {

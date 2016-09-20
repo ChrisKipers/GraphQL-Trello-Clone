@@ -37,6 +37,8 @@ export class BoardActionDispatcher {
 
   getBoard(boardId) {
     this.appStore.dispatch({type: LOAD_BOARD});
-
+    this.apiService.getBoard(boardId).then((data) => {
+      this.appStore.dispatch({type: LOAD_BOARD_SUCCESS, board: data.board});
+    })
   }
 }

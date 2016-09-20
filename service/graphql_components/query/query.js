@@ -22,7 +22,7 @@ const query = new GraphQLObjectType({
         }
       },
       resolve(_, {id}) {
-        return boardDao.findOne({id}).then(boardTransformer.transform);
+        return boardDao.findById(id).then(boardTransformer.transform);
       }
     }
   })
