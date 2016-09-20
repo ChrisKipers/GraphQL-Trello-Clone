@@ -1,8 +1,8 @@
 const {GraphQLObjectType, GraphQLString, GraphQLList, GraphQLInt, GraphQLID} = require('graphql');
 
-const {taskGraphQLType} = require('./task');
+const {taskGraphQLType, taskStatusEnumGraphQLType} = require('./task');
 const {taskDao} = require('../../dao/task_dao');
-const {taskTransformer} = require('../../transformers/task_transformer');
+const {taskTransformer, taskStatusTransformer} = require('../../transformers/task_transformer');
 
 const taskEdgeGraphQLType = new GraphQLObjectType({
   name: 'TaskEdge',
@@ -40,9 +40,23 @@ const boardListGraphQLType = new GraphQLObjectType({
         type: GraphQLString
       },
       tasks: {
+        args: {
+          statuses: {
+            name: 'statuses',
+            type: new GraphQLList(taskStatusEnumGraphQLType)
+          }
+        },
         type: taskCollectionGraphQLType,
-        resolve(parent) {
-          return taskDao.findAll({where: {boardListId: parent.id}})
+        resolve(parent, {statuses}) {
+          const queryClause = {where: {boardListId: parent.id}};
+          if (statuses) {
+            const dbStatus = statuses.map(taskStatusTransformer.transformGraphToDb)
+            queryClause.where.status = {
+              in: dbStatus
+            }
+          }
+
+          return taskDao.findAll(queryClause)
             .then(tasks => {
               const edges = tasks.map(ts => ({
                 position: ts.position,
@@ -54,8 +68,22 @@ const boardListGraphQLType = new GraphQLObjectType({
       },
       numberOfTasks: {
         type: GraphQLInt,
-        resolve(parent) {
-          return taskDao.count({where: {boardListId: parent.id}})
+        args: {
+          statuses: {
+            name: 'statuses',
+            type: new GraphQLList(taskStatusEnumGraphQLType)
+          }
+        },
+        resolve(parent, {statuses}) {
+          //TODO: move logic to real dao. This is too tightly coupled, and not DRY.
+          const queryClause = {where: {boardListId: parent.id}};
+          if (statuses) {
+            const dbStatus = statuses.map(taskStatusTransformer.transformGraphToDb)
+            queryClause.where.status = {
+              in: dbStatus
+            }
+          }
+          return taskDao.count(queryClause)
         }
       }
     }
