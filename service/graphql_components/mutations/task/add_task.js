@@ -1,15 +1,14 @@
 const {GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLInt, GraphQLID, GraphQLInputObjectType} = require('graphql');
-const {boardListDao} = require('../../../dao/board_list_dao');
-const {boardListTransformer} = require('../../../transformers/board_list_transformer');
+const {taskDao} = require('../../../dao/task_dao');
 
-const addBoardListMutation = {
+const addTaskMutation = {
   type: new GraphQLObjectType({
-    name: 'addBoardListPayload',
+    name: 'addTaskPayload',
     fields: () => ({
       id: {
         type: GraphQLID
       },
-      boardId: {
+      boardListId: {
         type: GraphQLID
       },
       name: {
@@ -23,34 +22,33 @@ const addBoardListMutation = {
   args: {
     input: {
       type: new GraphQLInputObjectType({
-        name: "addBoardListInput",
+        name: "addTaskInput",
         fields: () => ({
           name: {
             type: GraphQLString
           },
-          boardId: {
+          boardListId: {
             type: GraphQLID
-          },
+          }
         })
       })
     }
   },
   resolve: (_, {input}, context, into) => {
-    return boardListDao.max('position', {where: {boardId: input.boardId}})
+    return taskDao.max('position', {where: {boardListId: input.boardListId}})
       .then(result => {
-        console.log(result)
         const position = result != result ? 0: result + 1;
-        return boardListDao.create({name: input.name, boardId: input.boardId, position})
+        return taskDao.create({name: input.name, boardListId: input.boardListId, position})
       })
       .then(r => ({
         id: r.id,
         name: r.name,
-        boardId: r.boardId,
+        boardListId: r.boardListId,
         position: r.position
       }));
   }
 };
 
 module.exports = {
-  addBoardListMutation
+  addTaskMutation
 };

@@ -14,6 +14,9 @@ const taskDao = connection.define('task', {
   boardListId: {
     type: Sequelize.INTEGER,
   },
+  position: {
+    type: Sequelize.INTEGER
+  },
   createdTime : {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW

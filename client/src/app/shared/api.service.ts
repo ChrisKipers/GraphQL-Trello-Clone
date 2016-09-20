@@ -32,7 +32,7 @@ export class ApiService {
   createBoard(board) {
     const mutation =
       `mutation AddBoard($board: addBoardInput) {
-        addBoardMutation(input: $board) {
+        addBoard(input: $board) {
           id
           name
         }
