@@ -20,6 +20,10 @@ const taskDao = connection.define('task', {
   createdTime : {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
+  },
+  status: {
+    type: Sequelize.ENUM('NEW', 'ASSIGNED', 'IN PROGRESS', 'COMPLETED', 'CLOSED'),
+    defaultValue: 'NEW'
   }
 });
 
