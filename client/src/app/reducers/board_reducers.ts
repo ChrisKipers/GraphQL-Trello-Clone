@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   boardPropertiesById: {}
 };
 
-export function board(state=INITIAL_STATE, action=null) {
+export function board(state = INITIAL_STATE, action = null) {
   switch (action.type) {
     case LOAD_BOARD_LIST:
       return Object.assign({}, state, {
@@ -56,7 +56,7 @@ export function board(state=INITIAL_STATE, action=null) {
       });
     case MODIFY_BOARD_SUCCESS:
       const newBoardList = state.boardList.map(board => {
-        return board.id == action.board.id ? action.board : board;
+        return board.id === action.board.id ? action.board : board;
       });
       return Object.assign({}, state, {
         isModifyingBoard: false,

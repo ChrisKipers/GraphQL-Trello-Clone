@@ -2,18 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppStore } from '../stores/app_store';
 import { BoardActionDispatcher } from '../actions/board_actions';
+import { BoardProperties } from '../stores/app_state';
 
 @Component({
-  selector: 'board',
+  selector: 'board-detail',
   templateUrl: './board_detail.component.html',
   styleUrls: ['./board_detail.component.scss']
 })
 export class BoardDetailComponent implements OnInit {
 
-  private boardId: String;
-  private isLoadingBoard: Boolean;
+  private boardId: string;
+  private isLoadingBoard: boolean;
 
-  public boardProperties;
+  public boardProperties: BoardProperties;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -25,10 +26,10 @@ export class BoardDetailComponent implements OnInit {
   ngOnInit() {
     this.appStore.subscribe(this.updateComponentState.bind(this));
     this.updateComponentState();
-    this.activeRoute.params.subscribe(params => {
+    this.activeRoute.params.subscribe((params: {id: string}) => {
       this.boardId = params.id;
       this.boardActionDispatcher.getBoard(this.boardId);
-    })
+    });
   }
 
   updateComponentState() {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppStore } from '../stores/app_store';
-import { ApiService } from '../shared/api.service'
+import { ApiService } from '../shared/api.service';
 import { AppStateActionDispatcher } from './app_state_actions';
 
 import {

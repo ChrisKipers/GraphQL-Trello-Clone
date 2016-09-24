@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BoardActionDispatcher } from '../actions/board_actions'
+import { BoardActionDispatcher } from '../actions/board_actions';
 import { AppStore } from '../stores/app_store';
 
 

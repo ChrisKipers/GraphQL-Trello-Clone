@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 
 const path = 'http://localhost:4000/graphql?';
+//const path = 'https://graphql-trello-clone.appspot.com/graphql?';
 
 @Injectable()
 export class ApiService {
@@ -59,13 +60,14 @@ export class ApiService {
   }
 
   makeQuery_(query, variables) {
-    const requestPayload = {
-      query,
-      variables: JSON.stringify(variables)
-    };
-    const options = {headers: {'Content-Type': ['application/json']}};
+    // Use x-www-form-urlencoded to avoid using custom content-type which would require an option request for every post
+    // since the application is using CORS.
+    const options = {headers: new Headers({'Content-Type': ['application/x-www-form-urlencoded']})};
+    const variablesAsJsonString = JSON.stringify(variables);
+    const body = `query=${query}&variables=${variablesAsJsonString}`;
+
     return this.http
-      .post(path, JSON.stringify(requestPayload), options)
+      .post(path, body, options)
       .toPromise()
       .then(r => r.json().data);
   }

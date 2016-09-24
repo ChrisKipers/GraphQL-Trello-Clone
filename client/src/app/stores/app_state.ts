@@ -1,17 +1,22 @@
-interface ApplicationState {
+export interface ApplicationState {
   isAddDialogOpen: boolean;
-}
+};
 
-interface BoardState {
-  boardList: any[],
-  isLoadingBoardList: boolean,
-  isCreatingBoard: boolean,
-  isLoadingBoard: boolean,
-  isUpdatingBoard: boolean,
-  boardPropertiesById: any
-}
+export interface BoardProperties {
+  id: string;
+  name: string;
+};
 
-interface CompleteState {
-  appState: ApplicationState,
-  board: BoardState
-}
+export interface BoardState {
+  boardList: any[];
+  isLoadingBoardList: boolean;
+  isCreatingBoard: boolean;
+  isLoadingBoard: boolean;
+  isUpdatingBoard: boolean;
+  boardPropertiesById: { [key: string]: BoardProperties };
+};
+
+export interface CompleteState {
+  appState: ApplicationState;
+  board: BoardState;
+};
