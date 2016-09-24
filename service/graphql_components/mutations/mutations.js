@@ -1,5 +1,6 @@
 const {GraphQLObjectType} = require('graphql');
 const {addUserMutation} = require('./user/add_user');
+const {modifyBoardMutation} = require ('./board/modify_board')
 const {addCommentMutation} = require('./comment/add_comment');
 const {addBoardMutation} = require('./board/add_board');
 const {addBoardListMutation} = require('./board_list/add_board_list');
@@ -11,6 +12,7 @@ const mutations = new GraphQLObjectType({
     addUser: addUserMutation,
     addComment: addCommentMutation,
     addBoard: addBoardMutation,
+    modifyBoard: modifyBoardMutation,
     addBoardList: addBoardListMutation,
     addTask: addTaskMutation
   })

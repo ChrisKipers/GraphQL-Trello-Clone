@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 
 const path = 'http://localhost:4000/graphql?';
-const queryPath = path + 'query=';
 
 @Injectable()
 export class ApiService {
@@ -39,6 +38,22 @@ export class ApiService {
       }`;
 
     const variables = {board};
+
+    return this.makeQuery_(mutation, variables);
+  }
+
+  modifyBoard(id, boardProperties) {
+    const mutation =
+      `mutation ModifyBoard($board: modifyBoardInput) {
+        modifyBoard(input: $board) {
+          id
+          name
+        }
+      }`;
+
+    const variables = {
+      board: Object.assign({}, boardProperties, {id})
+    };
 
     return this.makeQuery_(mutation, variables);
   }

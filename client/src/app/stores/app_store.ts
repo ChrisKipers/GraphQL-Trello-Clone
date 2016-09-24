@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createStore } from 'redux';
 import { appReducer } from '../reducers/reducer';
+import {CompleteState} from './app_state'
 
 @Injectable()
 export class AppStore {
@@ -17,7 +18,7 @@ export class AppStore {
     return this.store_.dispatch(action);
   }
 
-  getState() {
+  getState(): CompleteState {
     return this.store_.getState();
   }
 }

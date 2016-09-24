@@ -1,0 +1,7 @@
+<button (click)="toggleIsEditing()" class="details-header-button">{{boardName}}</button>
+<div class="edit_board_form" *ngIf="isEditing">
+  <form (submit)="editBoardName(boardName.value)">
+    <md-input placeholder="Board name" type="text" #boardName></md-input>
+    <button md-raised-button color="primary">Rename</button>
+  </form>
+</div>

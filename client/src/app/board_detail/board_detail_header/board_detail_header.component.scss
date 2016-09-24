@@ -1,0 +1,19 @@
+@import '../../app.component';
+
+:host {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+:host /deep/ .details-header-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+  border-radius: 3px;
+
+  @extend .hover-darken;
+}

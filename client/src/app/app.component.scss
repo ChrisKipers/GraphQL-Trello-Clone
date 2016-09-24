@@ -18,3 +18,23 @@ app-nav {
   display: block;
   position: relative;
 }
+
+
+.pop-over {
+  padding: 5px;
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #D6DADC;
+  border-bottom-color: #C4C9CC;
+  box-shadow: 0 1px 6px rgba(0,0,0,.15);
+  overflow: hidden;
+  width: 300px;
+  z-index: 70;
+  -webkit-transform: translate3d(0,0,0);
+}
+
+.hover-darken {
+  &:hover {
+    background: rgba(0,0,0,.12);
+  }
+}

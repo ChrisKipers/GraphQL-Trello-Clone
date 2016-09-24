@@ -18,7 +18,8 @@ import { AddMenuComponent } from './nav/add_menu/add_menu.component';
 import { AddBoardComponent } from './nav/add_menu/add_board.component';
 import { ApiService } from './shared';
 import { routing } from './app.routing';
-
+import { BoardDetailHeaderComponent } from './board_detail/board_detail_header/board_detail_header.component'
+import { EditBoardNameComponent } from './board_detail/board_detail_header/edit_board_name.component'
 import { AppStateActionDispatcher } from './actions/app_state_actions';
 import { BoardActionDispatcher } from './actions/board_actions';
 import { AppStore } from './stores/app_store'
@@ -43,7 +44,9 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     BoardDetailComponent,
     NavComponent,
     AddMenuComponent,
-    AddBoardComponent
+    AddBoardComponent,
+    BoardDetailHeaderComponent,
+    EditBoardNameComponent
   ],
   providers: [
     ApiService,

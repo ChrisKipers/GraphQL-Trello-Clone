@@ -1,7 +1,8 @@
 import {
   CREATE_BOARD, CREATE_BOARD_SUCCESS,
   LOAD_BOARD_LIST, LOAD_BOARD_LIST_SUCCESS,
-  LOAD_BOARD, LOAD_BOARD_SUCCESS
+  LOAD_BOARD, LOAD_BOARD_SUCCESS,
+  MODIFY_BOARD, MODIFY_BOARD_SUCCESS
 } from '../actions/board_action_enum';
 
 const INITIAL_STATE = {
@@ -12,7 +13,7 @@ const INITIAL_STATE = {
   boardPropertiesById: {}
 };
 
-export function board(state=INITIAL_STATE, action) {
+export function board(state=INITIAL_STATE, action=null) {
   switch (action.type) {
     case LOAD_BOARD_LIST:
       return Object.assign({}, state, {
@@ -48,6 +49,21 @@ export function board(state=INITIAL_STATE, action) {
       return Object.assign({}, state, {
         isLoadingBoard: false,
         boardPropertiesById: boardPropertiesById
+      });
+    case MODIFY_BOARD:
+      return Object.assign({}, state, {
+        isModifyingBoard: true
+      });
+    case MODIFY_BOARD_SUCCESS:
+      const newBoardList = state.boardList.map(board => {
+        return board.id == action.board.id ? action.board : board;
+      });
+      return Object.assign({}, state, {
+        isModifyingBoard: false,
+        boardList: newBoardList,
+        boardPropertiesById: Object.assign({}, state.boardPropertiesById, {
+          [action.board.id]: action.board
+        })
       });
     default:
       return state;

@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   isAddDialogOpen: false
 };
 
-export function appState(state=INITIAL_STATE, action) {
+export function appState(state=INITIAL_STATE, action=null) {
   switch (action.type) {
     case OPEN_ADD_DIALOG:
       return Object.assign({}, state, {
@@ -12,7 +12,7 @@ export function appState(state=INITIAL_STATE, action) {
       });
     case CLOSE_ADD_DIALOG:
       return Object.assign({}, state, {
-        isAddDialogOpen: false
+        isAddDialogOpen: falsenp
       });
     default:
       return state;

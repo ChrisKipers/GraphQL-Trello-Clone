@@ -1,0 +1,22 @@
+@import '../../app.component';
+
+md-input {
+  width: 100%;
+}
+
+:host {
+  position: relative;
+}
+
+.details-header-button {
+  font-size: 125%;
+  font-weight: bold;
+}
+
+.edit_board_form {
+  position: absolute;
+  top: 50px;
+  width: 300px;
+
+  @extend .pop-over;
+}

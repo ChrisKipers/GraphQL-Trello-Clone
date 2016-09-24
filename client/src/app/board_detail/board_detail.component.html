@@ -1,5 +1,3 @@
 <div *ngIf="!isLoadingBoard">
-  <div>
-    <button>{{boardProperties.name}}</button>
-  </div>
+  <board-detail-header [boardProperties]="boardProperties"></board-detail-header>
 </div>

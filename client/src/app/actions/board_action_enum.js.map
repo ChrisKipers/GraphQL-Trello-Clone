@@ -1,1 +1,1 @@
-{"version":3,"file":"board_action_enum.js","sourceRoot":"","sources":["board_action_enum.ts"],"names":[],"mappings":""}
+{"version":3,"file":"board_action_enum.js","sourceRoot":"","sources":["board_action_enum.ts"],"names":[],"mappings":";AAAa,oBAAY,GAAG,cAAc,CAAC;AAC9B,4BAAoB,GAAG,sBAAsB,CAAC;AAC9C,uBAAe,GAAG,iBAAiB,CAAC;AACpC,+BAAuB,GAAG,yBAAyB,CAAC;AACpD,kBAAU,GAAG,YAAY,CAAC;AAC1B,0BAAkB,GAAG,oBAAoB,CAAC;AAC1C,oBAAY,GAAG,cAAc,CAAC;AAC9B,4BAAoB,GAAG,sBAAsB,CAAC"}
