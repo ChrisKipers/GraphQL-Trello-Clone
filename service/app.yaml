@@ -1,0 +1,7 @@
+runtime: custom
+vm: true
+env_variables:
+  MYSQL_USERNAME: root
+  MYSQL_HOST: 104.197.180.212
+  MYSQL_PASSWORD: "######"
+  PORT: 8080
