@@ -24,49 +24,49 @@ export class BoardActionDispatcher {
     private router: Router) {}
 
   loadBoardList() {
-    this.appStore.dispatch({type: BOARD_LIST_REQUEST});
-
     this.apiService.getBoards().then((data) => {
       this.appStore.dispatch({type: BOARD_LIST_SUCCESS, boards: data.boards});
     });
+    this.appStore.dispatch({type: BOARD_LIST_REQUEST});
   }
 
   createBoard(newBoard) {
-    this.appStore.dispatch({type: CREATE_BOARD});
-
     this.apiService.createBoard(newBoard).then((data) => {
       this.appStore.dispatch({type: CREATE_BOARD_SUCCESS, board: data.addBoard});
       this.appStateActionDispatcher.closeAddDialog();
       this.router.navigate(['board', data.addBoard.id]);
     });
+    this.appStore.dispatch({type: CREATE_BOARD});
   }
 
   getBoard(boardId) {
-    this.appStore.dispatch({type: LOAD_BOARD});
     this.apiService.getBoard(boardId).then((data) => {
       this.appStore.dispatch({type: LOAD_BOARD_SUCCESS, board: data.board});
     });
+    this.appStore.dispatch({type: LOAD_BOARD});
   }
 
   modifyBoard(boardId, boardProperties) {
     const requestId = guid();
-    this.appStore.dispatch({type: MODIFY_BOARD, requestId, board: boardProperties, boardId});
     this.apiService.modifyBoard(boardId, boardProperties).then(data => {
       this.appStore.dispatch({type: MODIFY_BOARD_SUCCESS, requestId, board: data.modifyBoard});
     });
+    this.appStore.dispatch({type: MODIFY_BOARD, requestId, board: boardProperties, boardId});
   }
 
   createList(newList) {
-    this.appStore.dispatch({type: CREATE_LIST_REQUEST});
+    const requestId = guid();
     this.apiService.createList(newList).then(data => {
-      this.appStore.dispatch({type: CREATE_LIST_REQUEST_SUCCESS, list: data.addBoardList})
+      this.appStore.dispatch({type: CREATE_LIST_REQUEST_SUCCESS, requestId, list: data.addBoardList})
     });
+    this.appStore.dispatch({type: CREATE_LIST_REQUEST, requestId, list: newList});
   }
 
   createTask(newTask) {
-    this.appStore.dispatch({type: CREATE_TASK_REQUEST});
+    const requestId = guid();
     this.apiService.createTask(newTask).then(data => {
-      this.appStore.dispatch({type: CREATE_TASK_REQUEST_SUCCESS, task: data.addTask})
+      this.appStore.dispatch({type: CREATE_TASK_REQUEST_SUCCESS, task: data.addTask, requestId})
     });
+    this.appStore.dispatch({type: CREATE_TASK_REQUEST, requestId, task: newTask});
   }
 }
