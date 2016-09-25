@@ -50,16 +50,7 @@ export class BoardActionDispatcher {
 
   modifyBoard(boardId, boardProperties) {
     const requestId = guid();
-
-    const optimisticModifier = (state) => {
-      const modifiedBoard = Object.assign({}, state.boardPropertiesById[boardId], boardProperties);
-      const boardPropertiesById = Object.assign({}, state.boardPropertiesById, {
-        [boardId]: modifiedBoard
-      });
-      return Object.assign({}, state, {boardPropertiesById});
-    };
-
-    this.appStore.dispatch({type: MODIFY_BOARD, requestId, optimisticModifier});
+    this.appStore.dispatch({type: MODIFY_BOARD, requestId, board: boardProperties, boardId});
     this.apiService.modifyBoard(boardId, boardProperties).then(data => {
       this.appStore.dispatch({type: MODIFY_BOARD_SUCCESS, requestId, board: data.modifyBoard});
     });

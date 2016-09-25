@@ -47,10 +47,17 @@ export function board(state = INITIAL_STATE, action =null) {
     case LOAD_BOARD_SUCCESS:
       return handleLoadBoardSuccess(state, action);
     case MODIFY_BOARD:
+      const modifyFn = (cState) => {
+        const boardPropertiesById = Object.assign({}, cState.boardPropertiesById, {
+          [action.boardId]: Object.assign({}, cState.boardPropertiesById[action.boardId], action.board)
+        });
+        return Object.assign({}, cState, {boardPropertiesById});
+      };
+
       return Object.assign({}, state, {
         isModifyingBoard: true,
         __optimisticModifier: [
-          ...state.__optimisticModifier, {requestId: action.requestId, fn: action.optimisticModifier}]
+          ...state.__optimisticModifier, {requestId: action.requestId, fn: modifyFn}]
       });
     case MODIFY_BOARD_SUCCESS:
       const newBoardList = state.boardList.map(board => {
