@@ -156,7 +156,7 @@ function handleCreateListRequestSuccess(state, action) {
 }
 
 function createTaskRequestSuccess(state, action) {
-  const previousRelationsForList = state.taskListRelationshipByListId[action.task.boardListId];
+  const previousRelationsForList = state.taskListRelationshipByListId[action.task.boardListId] || [];
   const newRelationsForList = [...previousRelationsForList, {position: action.task.position, taskId: action.task.id}];
 
   const taskListRelationshipByListId = Object.assign({}, state.taskListRelationshipByListId, {
