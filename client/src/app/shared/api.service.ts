@@ -30,6 +30,15 @@ export class ApiService {
               node {
                 id
                 name
+                tasks {
+                  edges {
+                    position
+                    node {
+                      id
+                      name
+                    }
+                  }
+                }
               }
             }
           }

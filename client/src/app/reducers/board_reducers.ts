@@ -13,8 +13,11 @@ const INITIAL_STATE = {
   isLoadingBoard: false,
   boardPropertiesById: {},
   boardListRelationshipByBoardId: {},
-  listsById: {}
+  listsById: {},
+  taskListRelationshipByListId: {},
+  taskById: {}
 };
+
 
 export function board(state = INITIAL_STATE, action =null) {
   switch (action.type) {
@@ -77,13 +80,13 @@ function handleLoadBoardSuccess(state, action) {
       }
     });
 
-  const relations =
+  const boardListRelations =
     action.board.lists.edges.map(edge => ({position: edge.position, listId: edge.node.id}));
-  relations.sort(sortByPosition);
+  boardListRelations.sort(sortByPosition);
 
   const boardListRelationshipByBoardId =
     Object.assign({}, state.boardListRelationshipByBoardId, {
-      [action.board.id]: relations
+      [action.board.id]: boardListRelations
     });
 
   const listsByIdForBoard = action.board.lists.edges.reduce((agg, edge) => {
@@ -95,11 +98,37 @@ function handleLoadBoardSuccess(state, action) {
   const listsById =
     Object.assign({}, state.listsById, listsByIdForBoard);
 
+  const newTaskListRelationsByListId = action.board.lists.edges.reduce((agg, edge) => {
+    const relations = edge.node.tasks.edges.map(t => ({position: t.position, taskId: t.node.id}));
+    relations.sort(sortByPosition);
+    agg[edge.node.id] = relations;
+    return agg;
+  }, {});
+
+  const taskListRelationshipByListId =
+    Object.assign({}, state.taskListRelationshipByListId, newTaskListRelationsByListId);
+
+  const newTasksById =
+    action.board.lists.edges.reduce((agg, listEdge) => {
+      listEdge.node.tasks.edges.forEach(taskEdge => {
+        agg[taskEdge.node.id] = {
+          id: taskEdge.node.id,
+          name: taskEdge.node.name,
+          listId: listEdge.node.id
+        };
+        return agg
+      });
+    }, {});
+
+  const taskById = Object.assign({}, state.taskById, newTasksById);
+
   return Object.assign({}, state, {
     isLoadingBoard: false,
     boardPropertiesById,
     boardListRelationshipByBoardId,
-    listsById
+    listsById,
+    taskListRelationshipByListId,
+    taskById
   });
 }
 
