@@ -1,5 +1,7 @@
 runtime: custom
 vm: true
+module: service
+
 env_variables:
   MYSQL_USERNAME: root
   MYSQL_HOST: 104.197.180.212

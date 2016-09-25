@@ -1,0 +1,22 @@
+runtime: python27
+threadsafe: true
+module: default
+
+handlers:
+- url: /favicon\.ico
+  static_files: dist/img/favicon.ico
+  upload: dist/img/favicon\.ico
+
+- url: (.*)/
+  static_files: dist/index.html
+  upload: dist/index.html
+  mime_type: text/html; charset=utf-8
+
+- url: /css
+  static_dir: dist/css
+
+- url: /js
+  static_dir: dist/js
+
+skip_files:
+- (?!^dist)

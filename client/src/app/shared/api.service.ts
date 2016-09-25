@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 
-const path = 'http://localhost:4000/graphql?';
-//const path = 'https://graphql-trello-clone.appspot.com/graphql?';
+//const path = 'http://localhost:4000/graphql?';
+const path = 'https://service-dot-graphql-trello-clone.appspot.com/graphql?';
 
 @Injectable()
 export class ApiService {

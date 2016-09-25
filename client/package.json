@@ -21,7 +21,8 @@
     "docs": "typedoc --options typedoc.json src/app/app.component.ts",
     "start": "npm run server",
     "start:hmr": "npm run server -- --hot",
-    "postinstall": "npm"
+    "postinstall": "npm run webdriver-update",
+    "deploy": "npm run build && echo y | gcloud app deploy app.yaml"
   },
   "dependencies": {
     "@angular/common": "2.0.0",
@@ -52,7 +53,7 @@
     "@types/jasmine": "^2.2.29",
     "@types/node": "^6.0.38",
     "@types/protractor": "^1.5.16",
-    "@types/selenium-webdriver": "^2.44.26",
+    "@types/selenium-webdriver": "2.44.29",
     "angular2-template-loader": "^0.4.0",
     "autoprefixer": "^6.3.2",
     "codelyzer": "0.0.26",
