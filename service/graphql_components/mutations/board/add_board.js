@@ -1,4 +1,4 @@
-const {GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID, GraphQLInputObjectType} = require('graphql');
+const {GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID, GraphQLInputObjectType, GraphQLBoolean} = require('graphql');
 const {boardDao} = require('../../../dao/board_dao');
 const {boardTransformer} = require('../../../transformers/board_transformer');
 
@@ -11,7 +11,10 @@ const addBoardMutation = {
       },
       name: {
         type: GraphQLString
-      }
+      },
+      isArchived: {
+        type: GraphQLBoolean
+      },
     })
   }),
   args: {

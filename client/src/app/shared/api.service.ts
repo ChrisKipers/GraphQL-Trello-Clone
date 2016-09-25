@@ -89,7 +89,6 @@ export class ApiService {
           name
           boardId
           position
-          status
         }
       }`;
 
