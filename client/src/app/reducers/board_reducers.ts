@@ -41,38 +41,7 @@ export function board(state = INITIAL_STATE, action =null) {
         isLoadingBoard: true,
       });
     case LOAD_BOARD_SUCCESS:
-      const boardPropertiesById =
-        Object.assign({}, state.boardPropertiesById, {
-          [action.board.id]: {
-            id: action.board.id,
-            name: action.board.name
-          }
-        });
-
-      const relations =
-        action.board.lists.edges.map(edge => ({position: edge.position, listId: edge.node.id}));
-      relations.sort(sortByPosition);
-
-      const boardListRelationshipByBoardId =
-        Object.assign({}, state.boardListRelationshipByBoardId, {
-          [action.board.id]: relations
-        });
-
-      const listsByIdForBoard = action.board.lists.edges.reduce((agg, edge) => {
-        const listEntry = {id: edge.node.id, boardId: action.board.id, name: edge.node.name};
-        agg[listEntry.id] = listEntry;
-        return agg;
-      }, {});
-
-      const listsById =
-        Object.assign({}, state.listsById, listsByIdForBoard);
-
-      return Object.assign({}, state, {
-        isLoadingBoard: false,
-        boardPropertiesById,
-        boardListRelationshipByBoardId,
-        listsById
-      });
+      return handleLoadBoardSuccess(state, action);
     case MODIFY_BOARD:
       return Object.assign({}, state, {
         isModifyingBoard: true
@@ -89,23 +58,7 @@ export function board(state = INITIAL_STATE, action =null) {
         })
       });
     case CREATE_LIST_REQUEST_SUCCESS:
-      const newRelation = {listId: action.list.id, position: action.list.position};
-      const relationsForBoard = [...state.boardListRelationshipByBoardId[action.list.boardId], newRelation];
-      relationsForBoard.sort(sortByPosition);
-
-      const boardListRelationshipByBoardId =
-        Object.assign({}, state.boardListRelationshipByBoardId, {
-          [action.list.boardId]: relationsForBoard
-        });
-      const newList = {id: action.list.id, name: action.list.name, boardId: action.list.boardId};
-      const listsById =
-        Object.assign({}, state.listsById, {
-          [action.list.id]: newList
-        });
-      return Object.assign({}, state, {
-        boardListRelationshipByBoardId,
-        listsById
-      });
+      return handleCreateListRequestSuccess(state, action);
     default:
       return state;
   }
@@ -113,4 +66,59 @@ export function board(state = INITIAL_STATE, action =null) {
 
 function sortByPosition(item1, item2) {
   return item1.position - item2.position;
+}
+
+function handleLoadBoardSuccess(state, action) {
+  const boardPropertiesById =
+    Object.assign({}, state.boardPropertiesById, {
+      [action.board.id]: {
+        id: action.board.id,
+        name: action.board.name
+      }
+    });
+
+  const relations =
+    action.board.lists.edges.map(edge => ({position: edge.position, listId: edge.node.id}));
+  relations.sort(sortByPosition);
+
+  const boardListRelationshipByBoardId =
+    Object.assign({}, state.boardListRelationshipByBoardId, {
+      [action.board.id]: relations
+    });
+
+  const listsByIdForBoard = action.board.lists.edges.reduce((agg, edge) => {
+    const listEntry = {id: edge.node.id, boardId: action.board.id, name: edge.node.name};
+    agg[listEntry.id] = listEntry;
+    return agg;
+  }, {});
+
+  const listsById =
+    Object.assign({}, state.listsById, listsByIdForBoard);
+
+  return Object.assign({}, state, {
+    isLoadingBoard: false,
+    boardPropertiesById,
+    boardListRelationshipByBoardId,
+    listsById
+  });
+}
+
+function handleCreateListRequestSuccess(state, action) {
+  const newRelation = {listId: action.list.id, position: action.list.position};
+  const relationsForBoard = [...state.boardListRelationshipByBoardId[action.list.boardId], newRelation];
+  relationsForBoard.sort(sortByPosition);
+
+  const boardListRelationshipByBoardId =
+    Object.assign({}, state.boardListRelationshipByBoardId, {
+      [action.list.boardId]: relationsForBoard
+    });
+  const newList = {id: action.list.id, name: action.list.name, boardId: action.list.boardId};
+  const listsById =
+    Object.assign({}, state.listsById, {
+      [action.list.id]: newList
+    });
+  return Object.assign({}, state, {
+    boardListRelationshipByBoardId,
+    listsById
+  });
 }

@@ -25,7 +25,7 @@ export interface BoardState {
   isLoadingBoard: boolean;
   isUpdatingBoard: boolean;
   boardPropertiesById: { [key: string]: BoardProperties };
-  boardListRelationshipByBoardId: {[key: string]: BoardListRelationship }
+  boardListRelationshipByBoardId: {[key: string]: BoardListRelationship[] }
   listsById: {[key: string]: List}
 };
 
