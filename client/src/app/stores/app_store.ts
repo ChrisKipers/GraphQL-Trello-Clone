@@ -19,6 +19,13 @@ export class AppStore {
   }
 
   getState(): CompleteState {
-    return this.store_.getState();
+    const rawState = this.store_.getState();
+    const optomisticBoardState = rawState.board.__optimisticModifier.reduce((boardState, modifier) => {
+      return modifier.fn(boardState);
+    }, rawState.board);
+
+    return Object.assign({}, rawState, {
+      board: optomisticBoardState
+    });
   }
 }

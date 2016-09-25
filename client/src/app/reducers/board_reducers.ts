@@ -16,9 +16,9 @@ const INITIAL_STATE = {
   boardListRelationshipByBoardId: {},
   listsById: {},
   taskListRelationshipByListId: {},
-  taskById: {}
+  taskById: {},
+  __optimisticModifier: []
 };
-
 
 export function board(state = INITIAL_STATE, action =null) {
   switch (action.type) {
@@ -48,7 +48,9 @@ export function board(state = INITIAL_STATE, action =null) {
       return handleLoadBoardSuccess(state, action);
     case MODIFY_BOARD:
       return Object.assign({}, state, {
-        isModifyingBoard: true
+        isModifyingBoard: true,
+        __optimisticModifier: [
+          ...state.__optimisticModifier, {requestId: action.requestId, fn: action.optimisticModifier}]
       });
     case MODIFY_BOARD_SUCCESS:
       const newBoardList = state.boardList.map(board => {
@@ -59,7 +61,8 @@ export function board(state = INITIAL_STATE, action =null) {
         boardList: newBoardList,
         boardPropertiesById: Object.assign({}, state.boardPropertiesById, {
           [action.board.id]: action.board
-        })
+        }),
+        __optimisticModifier: state.__optimisticModifier.filter(om => om.requestId === action.requestId)
       });
     case CREATE_LIST_REQUEST_SUCCESS:
       return handleCreateListRequestSuccess(state, action);

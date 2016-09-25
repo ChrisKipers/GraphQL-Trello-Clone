@@ -12,6 +12,9 @@ import {
   CREATE_LIST_REQUEST, CREATE_LIST_REQUEST_SUCCESS,
   CREATE_TASK_REQUEST, CREATE_TASK_REQUEST_SUCCESS} from './board_action_enum';
 
+
+import {guid} from './guid';
+
 @Injectable()
 export class BoardActionDispatcher {
   constructor(
@@ -46,9 +49,19 @@ export class BoardActionDispatcher {
   }
 
   modifyBoard(boardId, boardProperties) {
-    this.appStore.dispatch({type: MODIFY_BOARD});
+    const requestId = guid();
+
+    const optimisticModifier = (state) => {
+      const modifiedBoard = Object.assign({}, state.boardPropertiesById[boardId], boardProperties);
+      const boardPropertiesById = Object.assign({}, state.boardPropertiesById, {
+        [boardId]: modifiedBoard
+      });
+      return Object.assign({}, state, {boardPropertiesById});
+    };
+
+    this.appStore.dispatch({type: MODIFY_BOARD, requestId, optimisticModifier});
     this.apiService.modifyBoard(boardId, boardProperties).then(data => {
-      this.appStore.dispatch({type: MODIFY_BOARD_SUCCESS, board: data.modifyBoard});
+      this.appStore.dispatch({type: MODIFY_BOARD_SUCCESS, requestId, board: data.modifyBoard});
     });
   }
 
