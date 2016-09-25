@@ -1,4 +1,4 @@
-const {GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLInt} = require('graphql');
+const {GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLInt, GraphQLBoolean} = require('graphql');
 
 const {boardListGraphQLType} = require('./board_list');
 const {boardListDao} = require('../../dao/board_list_dao');
@@ -41,6 +41,9 @@ const boardGraphQLType = new GraphQLObjectType({
       },
       name: {
         type: GraphQLString
+      },
+      isArchived: {
+        type: GraphQLBoolean
       },
       lists: {
         type: boardListCollectionGraphQLType,

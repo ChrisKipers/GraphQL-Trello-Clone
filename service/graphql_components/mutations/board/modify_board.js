@@ -1,4 +1,4 @@
-const {GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID, GraphQLInputObjectType} = require('graphql');
+const {GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID, GraphQLInputObjectType, GraphQLBoolean} = require('graphql');
 const {boardDao} = require('../../../dao/board_dao');
 const {boardTransformer} = require('../../../transformers/board_transformer');
 
@@ -11,7 +11,10 @@ const modifyBoardMutation = {
       },
       name: {
         type: GraphQLString
-      }
+      },
+      isArchived: {
+        type: GraphQLBoolean
+      },
     })
   }),
   args: {
@@ -24,14 +27,21 @@ const modifyBoardMutation = {
           },
           name: {
             type: GraphQLString
-          }
+          },
+          isArchived: {
+            type: GraphQLBoolean
+          },
         })
       })
     }
   },
   resolve: (_, {input}, context, into) => {
+    const updateArgs = {name: input.name};
+    if (input.isArchived !== undefined) {
+      updateArgs.isArchived = input.isArchived;
+    }
     return boardDao
-      .update({name: input.name}, {where: {id: input.id}})
+      .update(updateArgs, {where: {id: input.id}})
       .then(response => response[0])
       .then(numOfUpdateBoards => {
         if (numOfUpdateBoards > 0) {

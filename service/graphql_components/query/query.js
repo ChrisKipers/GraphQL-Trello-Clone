@@ -1,4 +1,4 @@
-const {GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLNonNull} = require('graphql');
+const {GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID, GraphQLNonNull, GraphQLBoolean} = require('graphql');
 
 const {boardDao} = require('../../dao/board_dao');
 const {boardTransformer} = require('../../transformers/board_transformer');
@@ -8,9 +8,21 @@ const query = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     boards: {
+      args: {
+        isArchived: {
+          name: 'isArchived',
+          type: GraphQLBoolean
+        }
+      },
       type: new GraphQLList(boardGraphQLType),
-      resolve() {
-        return boardDao.findAll().then(boards => boards.map(boardTransformer.transform));
+      resolve(_, {isArchived}) {
+        const queryParts = {};
+        if (isArchived !== undefined) {
+          queryParts.isArchived = isArchived;
+        }
+        const isQueryPartsEmpty = Object.keys(queryParts).length == 0;
+        const query = isQueryPartsEmpty ? {} : {where: queryParts};
+        return boardDao.findAll(query).then(boards => boards.map(boardTransformer.transform));
       }
     },
     board: {

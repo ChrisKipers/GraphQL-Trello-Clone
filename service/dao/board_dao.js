@@ -14,6 +14,10 @@ const boardDao = connection.define('board', {
   createdTime : {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
+  },
+  isArchived: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 });
 
