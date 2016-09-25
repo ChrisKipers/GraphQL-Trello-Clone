@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppStore } from '../stores/app_store';
 import { BoardActionDispatcher } from '../actions/board_actions';
-import { BoardProperties, List } from '../stores/app_state';
+import { BoardProperties, List, Task } from '../stores/app_state';
 
 @Component({
   selector: 'board-detail',
@@ -16,6 +16,7 @@ export class BoardDetailComponent implements OnInit {
 
   public boardProperties: BoardProperties;
   public lists: List[];
+  public tasksByListId: {[key: string]: Task};
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -43,6 +44,16 @@ export class BoardDetailComponent implements OnInit {
 
     const boardRelationships = boardState.boardListRelationshipByBoardId[this.boardId];
     this.lists = boardRelationships ? boardRelationships.map(r => boardState.listsById[r.listId]) : [];
+
+    this.tasksByListId = this.lists.reduce((agg, list) => {
+      const taskListRelationships = boardState.taskListRelationshipByListId[list.id] || [];
+      agg[list.id] = taskListRelationships.map(r => boardState.taskById[r.taskId]);
+      return agg;
+    }, {});
+  }
+
+  addList(listName) {
+    this.boardActionDispatcher.createList({boardId: this.boardId, name: listName});
   }
 
   ngOnDestroy() {

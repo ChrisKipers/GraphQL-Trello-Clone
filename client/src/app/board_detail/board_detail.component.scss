@@ -3,7 +3,12 @@
 
   & > * {
     width: 270px;
+    min-width: 270px;
     margin: 0 5px;
     box-sizing: border-box;
   }
+}
+
+.lists-wrapper {
+  overflow-x: auto;
 }

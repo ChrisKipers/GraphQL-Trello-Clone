@@ -116,8 +116,8 @@ function handleLoadBoardSuccess(state, action) {
           name: taskEdge.node.name,
           listId: listEdge.node.id
         };
-        return agg
       });
+      return agg;
     }, {});
 
   const taskById = Object.assign({}, state.taskById, newTasksById);

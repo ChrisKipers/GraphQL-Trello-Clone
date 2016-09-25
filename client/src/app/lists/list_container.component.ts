@@ -2,7 +2,7 @@ import { Component, OnInit, Input} from '@angular/core';
 import { AppStore } from '../stores/app_store';
 import { AppStateActionDispatcher } from '../actions/app_state_actions';
 import { BoardActionDispatcher } from '../actions/board_actions';
-import { List } from '../stores/app_state';
+import { List, Task } from '../stores/app_state';
 
 @Component({
   selector: 'list-container',
@@ -11,6 +11,7 @@ import { List } from '../stores/app_state';
 })
 export class ListContainerComponent implements OnInit {
   @Input('list') list: List;
+  @Input('tasks') tasks: Task[];
 
   constructor(
     private appStore: AppStore,
@@ -18,6 +19,10 @@ export class ListContainerComponent implements OnInit {
     private boardActionDispatcher: BoardActionDispatcher) {}
 
   ngOnInit() {
+
+  }
+
+  addTask(taskName) {
 
   }
 }

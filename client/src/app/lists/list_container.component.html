@@ -1,1 +1,4 @@
 <header>{{list.name}}</header>
+<div class="task" *ngFor="let task of tasks">{{task.name}}</div>
+<add-text-item [placeholder]="'Add a task'" (itemCreated)="addTask($event)"></add-text-item>
+
