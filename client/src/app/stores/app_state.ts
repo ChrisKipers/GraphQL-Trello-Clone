@@ -23,10 +23,19 @@ export interface TaskListRelationship {
   position: number;
 };
 
+export enum TaskStatus {
+  NEW,
+  ASSIGNED,
+  IN_PROGRESS,
+  COMPLETE,
+  CLOSED
+};
+
 export interface Task {
   id: string;
   listId: string;
   name: string;
+  status: TaskStatus;
 };
 
 export interface BoardState {

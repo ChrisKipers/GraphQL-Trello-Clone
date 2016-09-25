@@ -85,6 +85,7 @@ export class ApiService {
           name
           boardId
           position
+          status
         }
       }`;
 
@@ -101,6 +102,7 @@ export class ApiService {
           name
           position
           boardListId
+          status
         }
       }`;
 

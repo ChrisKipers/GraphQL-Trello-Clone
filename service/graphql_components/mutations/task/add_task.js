@@ -1,5 +1,7 @@
 const {GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLInt, GraphQLID, GraphQLInputObjectType} = require('graphql');
 const {taskDao} = require('../../../dao/task_dao');
+const {taskStatusEnumGraphQLType} = require('../../query/task');
+const {taskStatusTransformer} = require('../../../transformers/task_transformer');
 
 const addTaskMutation = {
   type: new GraphQLObjectType({
@@ -16,6 +18,9 @@ const addTaskMutation = {
       },
       position: {
         type: GraphQLInt
+      },
+      status: {
+        type: taskStatusEnumGraphQLType
       }
     })
   }),
@@ -26,6 +31,9 @@ const addTaskMutation = {
         fields: () => ({
           name: {
             type: GraphQLString
+          },
+          status: {
+            type: taskStatusEnumGraphQLType
           },
           boardListId: {
             type: GraphQLID
@@ -38,13 +46,18 @@ const addTaskMutation = {
     return taskDao.max('position', {where: {boardListId: input.boardListId}})
       .then(result => {
         const position = result != result ? 0: result + 1;
-        return taskDao.create({name: input.name, boardListId: input.boardListId, position})
+        const addProperties = {name: input.name, boardListId: input.boardListId, position};
+        if (input.status) {
+          addProperties.status = taskStatusTransformer.transformGraphToDb(input.status);
+        }
+        return taskDao.create(addProperties);
       })
       .then(r => ({
         id: r.id,
         name: r.name,
         boardListId: r.boardListId,
-        position: r.position
+        position: r.position,
+        status: taskStatusTransformer.transformDbToGraph(r.status)
       }));
   }
 };

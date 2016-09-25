@@ -1,7 +1,12 @@
-<md-card>
+<md-card align="start">
   <md-card-title>{{list.name}}</md-card-title>
   <md-card-content>
-    <div class="task" *ngFor="let task of tasks">{{task.name}}</div>
+    <md-list>
+      <md-list-item *ngFor="let task of tasks">
+        <md-icon md-list-avatar>drag_handle</md-icon>
+        <p md-line>{{task.name}}</p>
+      </md-list-item>
+    </md-list>
   </md-card-content>
   <md-card-actions>
     <add-text-item [placeholder]="'Add a task'" (itemCreated)="addTask($event)"></add-text-item>

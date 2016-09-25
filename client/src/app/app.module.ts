@@ -10,6 +10,7 @@ import {MdButtonModule} from '@angular2-material/button';
 import {MdInputModule} from '@angular2-material/input';
 import {MdIconModule, MdIconRegistry} from '@angular2-material/icon';
 import {MdToolbarModule} from '@angular2-material/toolbar';
+import {MdListModule} from '@angular2-material/list';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -40,7 +41,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     MdMenuModule,
     MdButtonModule,
     MdIconModule,
-    MdToolbarModule
+    MdToolbarModule,
+    MdListModule
   ],
   declarations: [
     AppComponent,
