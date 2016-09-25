@@ -3,9 +3,11 @@
   <div class="lists-wrapper">
     <div class="lists">
       <list-container [list]="list" [tasks]="tasksByListId[list.id]" *ngFor="let list of lists"></list-container>
-      <md-card>
-        <add-text-item [placeholder]="'Add a list...'" (itemCreated)="addList($event)"></add-text-item>
-      </md-card>
+      <div><!-- Wrap in div so that the card is not the same high as siblings -->
+        <md-card>
+          <add-text-item [placeholder]="'Add a list...'" (itemCreated)="addList($event)"></add-text-item>
+        </md-card>
+      </div>
     </div>
   </div>
 </div>
