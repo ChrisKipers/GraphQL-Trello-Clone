@@ -3,7 +3,8 @@ import {
   BOARD_LIST_REQUEST, BOARD_LIST_SUCCESS,
   LOAD_BOARD, LOAD_BOARD_SUCCESS,
   MODIFY_BOARD, MODIFY_BOARD_SUCCESS,
-  CREATE_LIST_REQUEST_SUCCESS
+  CREATE_LIST_REQUEST_SUCCESS,
+  CREATE_TASK_REQUEST, CREATE_TASK_REQUEST_SUCCESS
 } from '../actions/board_action_enum';
 
 const INITIAL_STATE = {
@@ -62,6 +63,8 @@ export function board(state = INITIAL_STATE, action =null) {
       });
     case CREATE_LIST_REQUEST_SUCCESS:
       return handleCreateListRequestSuccess(state, action);
+    case CREATE_TASK_REQUEST_SUCCESS:
+      return createTaskRequestSuccess(state, action);
     default:
       return state;
   }
@@ -149,5 +152,24 @@ function handleCreateListRequestSuccess(state, action) {
   return Object.assign({}, state, {
     boardListRelationshipByBoardId,
     listsById
+  });
+}
+
+function createTaskRequestSuccess(state, action) {
+  const previousRelationsForList = state.taskListRelationshipByListId[action.task.boardListId];
+  const newRelationsForList = [...previousRelationsForList, {position: action.task.position, taskId: action.task.id}];
+
+  const taskListRelationshipByListId = Object.assign({}, state.taskListRelationshipByListId, {
+    [action.task.boardListId]: newRelationsForList
+  });
+
+  const newTask = {id: action.task.id, name: action.task.name, listId: action.task.boardListId};
+
+  const taskById = Object.assign({}, state.taskById, {
+    [action.task.id]: newTask
+  });
+  return Object.assign({}, state, {
+    taskListRelationshipByListId,
+    taskById
   });
 }

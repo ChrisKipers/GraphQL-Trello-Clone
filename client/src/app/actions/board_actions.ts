@@ -9,7 +9,8 @@ import {
   BOARD_LIST_REQUEST, BOARD_LIST_SUCCESS,
   LOAD_BOARD, LOAD_BOARD_SUCCESS,
   MODIFY_BOARD, MODIFY_BOARD_SUCCESS,
-  CREATE_LIST_REQUEST, CREATE_LIST_REQUEST_SUCCESS} from './board_action_enum';
+  CREATE_LIST_REQUEST, CREATE_LIST_REQUEST_SUCCESS,
+  CREATE_TASK_REQUEST, CREATE_TASK_REQUEST_SUCCESS} from './board_action_enum';
 
 @Injectable()
 export class BoardActionDispatcher {
@@ -55,6 +56,13 @@ export class BoardActionDispatcher {
     this.appStore.dispatch({type: CREATE_LIST_REQUEST});
     this.apiService.createList(newList).then(data => {
       this.appStore.dispatch({type: CREATE_LIST_REQUEST_SUCCESS, list: data.addBoardList})
+    });
+  }
+
+  createTask(newTask) {
+    this.appStore.dispatch({type: CREATE_TASK_REQUEST});
+    this.apiService.createTask(newTask).then(data => {
+      this.appStore.dispatch({type: CREATE_TASK_REQUEST_SUCCESS, task: data.addTask})
     });
   }
 }

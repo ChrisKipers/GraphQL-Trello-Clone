@@ -23,6 +23,6 @@ export class ListContainerComponent implements OnInit {
   }
 
   addTask(taskName) {
-
+    this.boardActionDispatcher.createTask({name: taskName, boardListId: this.list.id});
   }
 }

@@ -93,6 +93,22 @@ export class ApiService {
     return this.makeQuery_(mutation, variables);
   }
 
+  createTask(task) {
+    const mutation =
+      `mutation AddTask($task: addTaskInput) {
+        addTask(input: $task) {
+          id
+          name
+          position
+          boardListId
+        }
+      }`;
+
+    const variables = {task};
+
+    return this.makeQuery_(mutation, variables);
+  }
+
   makeQuery_(query, variables) {
     // Use x-www-form-urlencoded to avoid using custom content-type which would require an option request for every post
     // since the application is using CORS.
