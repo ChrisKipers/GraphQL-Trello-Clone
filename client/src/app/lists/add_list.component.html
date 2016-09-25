@@ -1,0 +1,8 @@
+<button *ngIf="!isActive" (click)="toggleIsActive()" class="add-list-button">Add a list...</button>
+<form *ngIf="isActive" (submit)="createNewList(newListName.value)">
+  <md-input type="text" placeholder="Add a list..." #newListName></md-input>
+  <button md-raised-button color="primary" type="submit">Save</button>
+  <button md-button color="warning" type="reset" (click)="toggleIsActive()">
+    <md-icon>close</md-icon>
+  </button>
+</form>

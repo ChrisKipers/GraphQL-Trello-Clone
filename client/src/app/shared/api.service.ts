@@ -24,6 +24,15 @@ export class ApiService {
         board(id: ${boardId}) {
           id
           name
+          lists {
+            edges {
+              position
+              node {
+                id
+                name
+              }
+            }
+          }
         }
       }`;
     return this.makeQuery_(query, {});
@@ -55,6 +64,22 @@ export class ApiService {
     const variables = {
       board: Object.assign({}, boardProperties, {id})
     };
+
+    return this.makeQuery_(mutation, variables);
+  }
+
+  createList(list) {
+    const mutation =
+      `mutation AddListBoard($list: addBoardListInput) {
+        addBoardList(input: $list) {
+          id
+          name
+          boardId
+          position
+        }
+      }`;
+
+    const variables = {list};
 
     return this.makeQuery_(mutation, variables);
   }

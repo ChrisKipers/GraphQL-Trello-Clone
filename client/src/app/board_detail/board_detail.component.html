@@ -1,3 +1,7 @@
 <div *ngIf="!isLoadingBoard">
   <board-detail-header [boardProperties]="boardProperties"></board-detail-header>
+  <div class="lists">
+    <list-container [list]="list" *ngFor="let list of lists"></list-container>
+    <add-list [boardId]="boardId"></add-list>
+  </div>
 </div>

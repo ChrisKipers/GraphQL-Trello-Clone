@@ -23,6 +23,8 @@ import { EditBoardNameComponent } from './board_detail/board_detail_header/edit_
 import { AppStateActionDispatcher } from './actions/app_state_actions';
 import { BoardActionDispatcher } from './actions/board_actions';
 import { AppStore } from './stores/app_store';
+import { AddListComponent } from './lists/add_list.component';
+import { ListContainerComponent } from './lists/list_container.component';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
@@ -46,7 +48,9 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     AddMenuComponent,
     AddBoardComponent,
     BoardDetailHeaderComponent,
-    EditBoardNameComponent
+    EditBoardNameComponent,
+    AddListComponent,
+    ListContainerComponent
   ],
   providers: [
     ApiService,

@@ -7,6 +7,17 @@ export interface BoardProperties {
   name: string;
 };
 
+export interface BoardListRelationship {
+  listId: string;
+  position: number;
+};
+
+export interface List {
+  id: string;
+  boardId: string;
+  name: string;
+};
+
 export interface BoardState {
   boardList: any[];
   isLoadingBoardList: boolean;
@@ -14,6 +25,8 @@ export interface BoardState {
   isLoadingBoard: boolean;
   isUpdatingBoard: boolean;
   boardPropertiesById: { [key: string]: BoardProperties };
+  boardListRelationshipByBoardId: {[key: string]: BoardListRelationship }
+  listsById: {[key: string]: List}
 };
 
 export interface CompleteState {

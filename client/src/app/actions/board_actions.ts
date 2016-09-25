@@ -6,9 +6,10 @@ import { AppStateActionDispatcher } from './app_state_actions';
 
 import {
   CREATE_BOARD, CREATE_BOARD_SUCCESS,
-  LOAD_BOARD_LIST, LOAD_BOARD_LIST_SUCCESS,
+  BOARD_LIST_REQUEST, BOARD_LIST_SUCCESS,
   LOAD_BOARD, LOAD_BOARD_SUCCESS,
-  MODIFY_BOARD, MODIFY_BOARD_SUCCESS} from './board_action_enum';
+  MODIFY_BOARD, MODIFY_BOARD_SUCCESS,
+  CREATE_LIST_REQUEST, CREATE_LIST_REQUEST_SUCCESS} from './board_action_enum';
 
 @Injectable()
 export class BoardActionDispatcher {
@@ -19,10 +20,10 @@ export class BoardActionDispatcher {
     private router: Router) {}
 
   loadBoardList() {
-    this.appStore.dispatch({type: LOAD_BOARD_LIST});
+    this.appStore.dispatch({type: BOARD_LIST_REQUEST});
 
     this.apiService.getBoards().then((data) => {
-      this.appStore.dispatch({type: LOAD_BOARD_LIST_SUCCESS, boards: data.boards});
+      this.appStore.dispatch({type: BOARD_LIST_SUCCESS, boards: data.boards});
     });
   }
 
@@ -47,6 +48,13 @@ export class BoardActionDispatcher {
     this.appStore.dispatch({type: MODIFY_BOARD});
     this.apiService.modifyBoard(boardId, boardProperties).then(data => {
       this.appStore.dispatch({type: MODIFY_BOARD_SUCCESS, board: data.modifyBoard});
+    });
+  }
+
+  createList(newList) {
+    this.appStore.dispatch({type: CREATE_LIST_REQUEST});
+    this.apiService.createList(newList).then(data => {
+      this.appStore.dispatch({type: CREATE_LIST_REQUEST_SUCCESS, list: data.addBoardList})
     });
   }
 }

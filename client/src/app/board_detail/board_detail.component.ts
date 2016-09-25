@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppStore } from '../stores/app_store';
 import { BoardActionDispatcher } from '../actions/board_actions';
-import { BoardProperties } from '../stores/app_state';
+import { BoardProperties, List } from '../stores/app_state';
 
 @Component({
   selector: 'board-detail',
@@ -15,6 +15,7 @@ export class BoardDetailComponent implements OnInit {
   private isLoadingBoard: boolean;
 
   public boardProperties: BoardProperties;
+  public lists: List[];
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -39,6 +40,9 @@ export class BoardDetailComponent implements OnInit {
       return;
     }
     this.boardProperties = boardState.boardPropertiesById[this.boardId];
+
+    const boardRelationships = boardState.boardListRelationshipByBoardId[this.boardId];
+    this.lists = boardRelationships ? boardRelationships.map(r => boardState.listsById[r.listId]) : [];
   }
 
   ngOnDestroy() {

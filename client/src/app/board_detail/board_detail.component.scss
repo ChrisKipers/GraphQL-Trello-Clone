@@ -1,0 +1,9 @@
+.lists {
+  display: flex;
+
+  & > * {
+    width: 270px;
+    margin: 0 5px;
+    box-sizing: border-box;
+  }
+}
