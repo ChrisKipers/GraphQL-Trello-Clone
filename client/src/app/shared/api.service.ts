@@ -13,6 +13,7 @@ export class ApiService {
         boards {
           id
           name
+          isArchived
         }
       }`;
     return this.makeQuery_(query, {});
@@ -24,6 +25,7 @@ export class ApiService {
         board(id: ${boardId}) {
           id
           name
+          isArchived
           lists {
             edges {
               position
@@ -53,6 +55,7 @@ export class ApiService {
         addBoard(input: $board) {
           id
           name
+          isArchived
         }
       }`;
 
@@ -67,6 +70,7 @@ export class ApiService {
         modifyBoard(input: $board) {
           id
           name
+          isArchived
         }
       }`;
 

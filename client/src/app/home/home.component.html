@@ -1,5 +1,5 @@
 <div class="board-list">
-  <md-card *ngFor="let board of boards" (click)="goToBoard(board)">
+  <md-card *ngFor="let board of boards | filterBoardByStatus:false" (click)="goToBoard(board)">
     {{board.name}}
   </md-card>
 </div>

@@ -79,7 +79,8 @@ function handleLoadBoardSuccess(state, action) {
     Object.assign({}, state.boardPropertiesById, {
       [action.board.id]: {
         id: action.board.id,
-        name: action.board.name
+        name: action.board.name,
+        isArchived: action.board.isArchived
       }
     });
 

@@ -1,5 +1,7 @@
 import { Component, Input, ViewChild} from '@angular/core';
 import { MdMenuTrigger } from '@angular2-material/menu';
+import { BoardActionDispatcher } from '../../actions/board_actions';
+import { BoardProperties } from '../../stores/app_state';
 
 @Component({
   selector: 'board-detail-header',
@@ -9,9 +11,9 @@ import { MdMenuTrigger } from '@angular2-material/menu';
 export class BoardDetailHeaderComponent {
   @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
 
-  @Input('boardProperties') boardProperties: Object;
+  @Input('boardProperties') boardProperties: BoardProperties;
 
-  constructor() {
+  constructor(private boardActionDispatcher: BoardActionDispatcher) {
   }
 
   stopPropagation(event) {
@@ -20,5 +22,10 @@ export class BoardDetailHeaderComponent {
 
   closeMenu() {
     this.trigger.closeMenu();
+  }
+
+  toggleArchive() {
+    this.boardActionDispatcher
+      .modifyBoard(this.boardProperties.id, {isArchived: !this.boardProperties.isArchived});
   }
 }

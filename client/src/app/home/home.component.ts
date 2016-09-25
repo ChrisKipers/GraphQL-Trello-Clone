@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Injectable, Pipe, PipeTransform} from '@angular/core';
 import { Router } from '@angular/router';
 import { BoardActionDispatcher } from '../actions/board_actions';
 import { AppStore } from '../stores/app_store';
+import { BoardProperties } from '../stores/app_state';
 
+@Pipe({name: 'filterBoardByStatus'})
+export class FilterBoardByStatus implements PipeTransform {
+  transform(items: BoardProperties[], isArchived: boolean): BoardProperties[] {
+    return items.filter(i => i.isArchived == isArchived);
+  }
+}
 
 @Component({
   selector: 'my-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
 
   public isLoading: boolean;
-  public boards: Array<Object>;
+  public boards: BoardProperties[];
 
   constructor(
     private appStore: AppStore,

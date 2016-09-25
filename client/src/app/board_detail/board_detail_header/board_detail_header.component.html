@@ -2,6 +2,21 @@
   <button md-button [md-menu-trigger-for]="menu" class="board-name-button">
     {{boardProperties.name}}
   </button>
+  <span class="fill-remaining-space"></span>
+  <button md-icon-button
+          (click)="toggleArchive()"
+          md-tooltip="Archive board"
+          *ngIf="!boardProperties.isArchived"
+          class="archive">
+    <md-icon>archive</md-icon>
+  </button>
+  <button md-icon-button
+          (click)="toggleArchive()"
+          md-tooltip="Unarchive board"
+          *ngIf="boardProperties.isArchived"
+          class="unarchive">
+    <md-icon>unarchive</md-icon>
+  </button>
 </md-toolbar>
 <md-menu #menu="mdMenu" x-position="after" y-position="below">
   <div (click)="stopPropagation($event)">

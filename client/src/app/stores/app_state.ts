@@ -5,6 +5,7 @@ export interface ApplicationState {
 export interface BoardProperties {
   id: string;
   name: string;
+  isArchived: boolean;
 };
 
 export interface BoardListRelationship {
@@ -39,7 +40,7 @@ export interface Task {
 };
 
 export interface BoardState {
-  boardList: any[];
+  boardList: BoardProperties[];
   isLoadingBoardList: boolean;
   isCreatingBoard: boolean;
   isLoadingBoard: boolean;

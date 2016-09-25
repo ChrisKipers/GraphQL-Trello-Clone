@@ -11,9 +11,10 @@ import {MdInputModule} from '@angular2-material/input';
 import {MdIconModule, MdIconRegistry} from '@angular2-material/icon';
 import {MdToolbarModule} from '@angular2-material/toolbar';
 import {MdListModule} from '@angular2-material/list';
+import {MdTooltipModule} from '@angular2-material/tooltip';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent, FilterBoardByStatus } from './home/home.component';
 import { BoardDetailComponent } from './board_detail/board_detail.component';
 import { NavComponent } from './nav/nav.component';
 import { AddMenuComponent } from './nav/add_menu/add_menu.component';
@@ -42,7 +43,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     MdButtonModule,
     MdIconModule,
     MdToolbarModule,
-    MdListModule
+    MdListModule,
+    MdTooltipModule
   ],
   declarations: [
     AppComponent,
@@ -54,7 +56,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     BoardDetailHeaderComponent,
     EditBoardNameComponent,
     ListContainerComponent,
-    AddTextItemComponent
+    AddTextItemComponent,
+    FilterBoardByStatus
   ],
   providers: [
     ApiService,
