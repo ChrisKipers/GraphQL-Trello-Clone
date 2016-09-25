@@ -38,7 +38,7 @@ export interface BoardState {
   boardPropertiesById: { [key: string]: BoardProperties };
   boardListRelationshipByBoardId: {[key: string]: BoardListRelationship[] };
   listsById: {[key: string]: List};
-  taskListRelationshipByListId: {[key: string]: TaskListRelationship};
+  taskListRelationshipByListId: {[key: string]: TaskListRelationship[]};
   taskById: {[key: string]: Task};
 };
 

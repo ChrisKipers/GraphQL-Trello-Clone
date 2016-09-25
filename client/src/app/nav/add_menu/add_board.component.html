@@ -1,4 +1,7 @@
 <form>
   <md-input placeholder="Board name" #boardName></md-input>
   <button md-raised-button color="primary" (click)="createBoard(boardName.value)">Create</button>
+  <button md-icon-button  type="reset" (click)="cancel.emit()">
+    <md-icon>close</md-icon>
+  </button>
 </form>

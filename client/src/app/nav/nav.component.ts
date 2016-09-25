@@ -1,29 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { AppStore } from '../stores/app_store';
-import { AppStateActionDispatcher } from '../actions/app_state_actions';
+import { Component, ViewChild } from '@angular/core';
+import { MdMenuTrigger } from '@angular2-material/menu';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
-  public isAddDialogOpen: boolean;
+export class NavComponent {
+  @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
 
-  constructor(private appStore: AppStore, private appStateActionDispatcher: AppStateActionDispatcher) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.isAddDialogOpen = this.appStore.getState().appState.isAddDialogOpen;
-    this.appStore.subscribe(() => {
-      this.isAddDialogOpen = this.appStore.getState().appState.isAddDialogOpen;
-    });
+  closeMenu() {
+    this.trigger.closeMenu();
   }
 
-  toggleAddDialog() {
-    if (this.isAddDialogOpen) {
-      this.appStateActionDispatcher.closeAddDialog();
-    } else {
-      this.appStateActionDispatcher.openAddDialog();
-    }
+  preventDefault(event) {
+    event.stopPropagation();
   }
 }

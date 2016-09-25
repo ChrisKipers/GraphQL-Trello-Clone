@@ -1,15 +1,13 @@
-<nav>
-  <div></div>
-  <div>
-    <a class="app-link" [routerLink]="['']">Trello Clone</a>
-  </div>
-  <div>
-    <button (click)="toggleAddDialog()">
-      <md-icon>add</md-icon>
-    </button>
-  </div>
-</nav>
-<div class="add-dialog pop-over" *ngIf="isAddDialogOpen">
-  <add-menu></add-menu>
-</div>
+<md-toolbar [color]="'primary'">
+  <span><a class="app-link" [routerLink]="['']">GraphQL Trello Clone</a></span>
+  <span class="example-fill-remaining-space"></span>
+  <button md-icon-button [md-menu-trigger-for]="menu">
+    <md-icon>add</md-icon>
+  </button>
+</md-toolbar>
 
+<md-menu #menu="mdMenu" x-position="before" y-position="below">
+  <div (click)="preventDefault($event)">
+    <add-menu (itemAdded)="closeMenu()" (cancel)="closeMenu()"></add-menu>
+  </div>
+</md-menu>
