@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { BoardActionDispatcher } from '../../actions/board_actions';
 
 @Component({
@@ -6,30 +6,20 @@ import { BoardActionDispatcher } from '../../actions/board_actions';
   templateUrl: './edit_board_name.component.html',
   styleUrls: ['./edit_board_name.component.scss']
 })
-export class EditBoardNameComponent implements OnInit {
+export class EditBoardNameComponent {
+  @Output() rename = new EventEmitter();
+  @Output() cancel = new EventEmitter();
 
   @Input('boardName') boardName: String;
   @Input('boardId') boardId: String;
 
-  public isEditing: boolean;
 
   constructor(private boardActionDispatcher: BoardActionDispatcher) {
   }
 
-  ngOnInit() {
-    this.isEditing = false;
-  }
-
-  toggleIsEditing() {
-    this.isEditing = !this.isEditing;
-  }
 
   editBoardName(newBoardName) {
-    console.log(newBoardName);
-    this.isEditing = false;
     this.boardActionDispatcher.modifyBoard(this.boardId, {name: newBoardName});
-  }
-
-  ngOnDestroy() {
+    this.rename.emit();
   }
 }

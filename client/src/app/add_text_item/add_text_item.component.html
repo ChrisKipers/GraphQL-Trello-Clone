@@ -1,6 +1,6 @@
-<button *ngIf="!isActive" (click)="toggleIsActive()" class="add-button">{{placeholder}}</button>
+<button *ngIf="!isActive" (click)="toggleIsActive()" md-button>{{placeholder}}</button>
 <form *ngIf="isActive" (submit)="createItem(item.value)">
-  <md-input type="text" placeholder="Add a list..." #item></md-input>
+  <md-input type="text" placeholder="{{placeholder}}" #item></md-input>
   <button md-raised-button color="primary" type="submit">Save</button>
   <button md-icon-button color="warning" type="reset" (click)="toggleIsActive()">
     <md-icon>close</md-icon>

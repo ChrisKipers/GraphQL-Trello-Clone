@@ -1,4 +1,11 @@
-<header>{{list.name}}</header>
-<div class="task" *ngFor="let task of tasks">{{task.name}}</div>
-<add-text-item [placeholder]="'Add a task'" (itemCreated)="addTask($event)"></add-text-item>
+<md-card>
+  <md-card-title>{{list.name}}</md-card-title>
+  <md-card-content>
+    <div class="task" *ngFor="let task of tasks">{{task.name}}</div>
+  </md-card-content>
+  <md-card-actions>
+    <add-text-item [placeholder]="'Add a task'" (itemCreated)="addTask($event)"></add-text-item>
+  </md-card-actions>
+</md-card>
+
 

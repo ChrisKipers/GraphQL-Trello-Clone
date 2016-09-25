@@ -1,21 +1,24 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { BoardActionDispatcher } from '../../actions/board_actions';
+import { Component, Input, ViewChild} from '@angular/core';
+import { MdMenuTrigger } from '@angular2-material/menu';
 
 @Component({
   selector: 'board-detail-header',
   templateUrl: './board_detail_header.component.html',
   styleUrls: ['./board_detail_header.component.scss']
 })
-export class BoardDetailHeaderComponent implements OnInit {
+export class BoardDetailHeaderComponent {
+  @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
 
   @Input('boardProperties') boardProperties: Object;
 
-  constructor(private boardActionDispatcher: BoardActionDispatcher) {
+  constructor() {
   }
 
-  ngOnInit() {
+  stopPropagation(event) {
+    event.stopPropagation();
   }
 
-  ngOnDestroy() {
+  closeMenu() {
+    this.trigger.closeMenu();
   }
 }

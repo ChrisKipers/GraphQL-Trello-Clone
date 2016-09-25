@@ -1,27 +1,12 @@
 :host {
   & > * {
     width: 100%;
+    box-sizing: border-box;
   }
 }
 
-.add-button {
-  border: none;
-  outline: none;
-  background-color: rgba(0,0,0,.12);
-  padding: 7px;
-  text-align: left;
-  border-radius: 3px;
-
-  &:hover {
-    background-color: rgba(0,0,0,.24);
-    cursor: pointer;
-  }
-}
 
 form {
-  background: #E2E4E6;
-  padding: 15px;
-
   md-input {
     width: 100%;
   }

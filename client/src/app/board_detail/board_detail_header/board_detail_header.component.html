@@ -1,4 +1,12 @@
-<div>
-  <edit-board-name [boardName]="boardProperties.name" [boardId]="boardProperties.id"></edit-board-name>
-</div>
-<div></div>
+<md-toolbar>
+  <button md-button [md-menu-trigger-for]="menu" class="board-name-button">
+    {{boardProperties.name}}
+  </button>
+</md-toolbar>
+<md-menu #menu="mdMenu" x-position="after" y-position="below">
+  <div (click)="stopPropagation($event)">
+    <edit-board-name
+      (rename)="closeMenu()" (cancel)="closeMenu()"
+      [boardName]="boardProperties.name" [boardId]="boardProperties.id"></edit-board-name>
+  </div>
+</md-menu>
